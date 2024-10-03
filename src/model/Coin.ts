@@ -4,6 +4,8 @@ export interface Coin {
   symbol: string;
   price: string;
   marketCap: string;
-  volume: string;
+  rank: string;
+  color: string;
+  iconUrl: string;
   change: string;
 }

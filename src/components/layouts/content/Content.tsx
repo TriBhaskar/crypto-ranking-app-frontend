@@ -8,73 +8,60 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Coin } from "@/model/Coin";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
 export default function Content() {
+  const [coins, setCoins] = useState<Coin[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchCoins = async () => {
+      try {
+        const response = await axios.get("http://localhost:8081/api/v1/coins");
+        console.log("Coins:", response.data);
+        setCoins(response.data);
+      } catch (error) {
+        console.error("Error fetching coins:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCoins();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <Table className="">
         <TableCaption>A list of your coins</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Symbol</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>MarketCap</TableHead>
+            <TableHead>Rank</TableHead>
+            <TableHead>Change</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell>{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
+          {coins.map((coin) => (
+            <TableRow key={coin.symbol}>
+              <TableCell>{coin.name}</TableCell>
+              <TableCell className={`bg-[${coin.color}]`}>
+                {coin.symbol}
               </TableCell>
+              <TableCell>{coin.price}</TableCell>
+              <TableCell>{coin.marketCap}</TableCell>
+              <TableCell>
+                <img src={coin.iconUrl} height="30" width="30"></img>
+              </TableCell>
+              <TableCell>{coin.change}</TableCell>
             </TableRow>
           ))}
         </TableBody>
