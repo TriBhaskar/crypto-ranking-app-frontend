@@ -5,7 +5,7 @@ interface CoinListItemProps {
   coin: Coin;
 }
 
-export default function CoinListItem({ coin }: CoinListItemProps) {
+export default function CoinItem({ coin }: CoinListItemProps) {
   return (
     <TableRow>
       <TableCell>{coin.name}</TableCell>
