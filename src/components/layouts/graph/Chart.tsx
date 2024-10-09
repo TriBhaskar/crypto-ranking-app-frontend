@@ -125,12 +125,29 @@ export default function Chart() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
+      <CardFooter className="flex-col items-center gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
           Trending up by 5.2% this timestamp <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last 6 timestamps
+        </div>
+        <div className="flex gap-4 mt-4">
+          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+            24H
+          </button>
+          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+            3M
+          </button>
+          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+            1Y
+          </button>
+          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+            3Y
+          </button>
+          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+            5Y
+          </button>
         </div>
       </CardFooter>
     </Card>
