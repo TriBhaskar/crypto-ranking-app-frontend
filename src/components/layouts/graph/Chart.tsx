@@ -182,13 +182,17 @@ const chartConfig = {
     label: "value",
     color: "hsl(var(--chart-1))",
   },
+  timestamp: {
+    label: "timestamp",
+    color: "hsl(var(--chart-2))",
+  },
 } satisfies ChartConfig;
 
 export default function Chart() {
   return (
     <Card className="w-5/6 mx-auto">
       <CardHeader>
-        <CardTitle>Line Chart - Linear</CardTitle>
+        <CardTitle>Coin Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
