@@ -66,7 +66,7 @@ export default function Chart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart - Linear</CardTitle>
+        <CardTitle>CoinRank Graph</CardTitle>
         <CardDescription>Last 24 Hours</CardDescription>
       </CardHeader>
       <CardContent>
