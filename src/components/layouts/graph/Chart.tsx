@@ -17,8 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { fetchChartData } from "@/api/coinApi";
 
 export const description = "A linear line chart";
 
@@ -36,32 +36,18 @@ export default function Chart() {
   }
 
   const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [period, setPeriod] = useState("1y");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8081/api/v1/coins/ETH/1y"
-        );
-        const formattedData = response.data.map(
-          (item: { timestamp: string | number | Date }) => ({
-            ...item,
-            timestamp: new Date(item.timestamp).toLocaleDateString("default", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            }),
-          })
-        );
-        console.table(formattedData);
-        setChartData(formattedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    const getData = async () => {
+      const data = await fetchChartData(period);
+      setChartData(data);
     };
 
-    fetchData();
-  }, []);
+    getData();
+  }, [period]);
+
+  // let lastDisplayedMonth = "";
 
   return (
     <Card>
@@ -72,8 +58,8 @@ export default function Chart() {
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
-            width={600} // Set the width of the chart
-            height={400} // Set the height of the chart
+            width={600}
+            height={400}
             accessibilityLayer
             data={chartData}
             margin={{
@@ -87,18 +73,18 @@ export default function Chart() {
               tickLine={false}
               axisLine={false}
               domain={["auto", "auto"]}
-              interval={0} // Ensure all ticks are displayed
+              interval={0}
               tickFormatter={(value, index) => {
                 const date = new Date(value);
                 const month = date.toLocaleString("default", {
                   month: "short",
                 });
-                if (index % Math.floor(chartData.length / 14) === 0) {
+                if (index % Math.floor(chartData.length / 13) === 0) {
                   return month;
                 }
                 return "";
               }}
-              tick={{ textAnchor: "middle" }} // Center the text
+              tick={{ textAnchor: "middle" }}
               tickMargin={8}
               tickCount={6}
             />
@@ -130,20 +116,41 @@ export default function Chart() {
           Showing total visitors for the last 6 timestamps
         </div>
         <div className="flex gap-4 mt-4">
-          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPeriod("24h")}
+          >
             24H
           </button>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPeriod("7d")}
+          >
+            7D
+          </button>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPeriod("30d")}
+          >
+            30D
+          </button>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPeriod("3m")}
+          >
             3M
           </button>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPeriod("1y")}
+          >
             1Y
           </button>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => setPeriod("3y")}
+          >
             3Y
-          </button>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded">
-            5Y
           </button>
         </div>
       </CardFooter>
