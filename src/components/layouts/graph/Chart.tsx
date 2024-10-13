@@ -86,24 +86,21 @@ export default function Chart() {
               dataKey="timestamp"
               tickLine={false}
               axisLine={false}
-              tickMargin={8}
-              label={{ value: "Value", angle: 0, position: "" }}
               domain={["auto", "auto"]}
-              interval="preserveStartEnd"
-              tickFormatter={(value) => {
+              interval={0} // Ensure all ticks are displayed
+              tickFormatter={(value, index) => {
                 const date = new Date(value);
-                return date.toLocaleString("default", { month: "short" });
+                const month = date.toLocaleString("default", {
+                  month: "short",
+                });
+                if (index % Math.floor(chartData.length / 14) === 0) {
+                  return month;
+                }
+                return "";
               }}
-              ticks={chartData
-                .map((entry) => entry.timestamp)
-                .filter((value, index, self) => {
-                  const date = new Date(value);
-                  const month = date.getMonth();
-                  return (
-                    index ===
-                    self.findIndex((v) => new Date(v).getMonth() === month)
-                  );
-                })}
+              tick={{ textAnchor: "middle" }} // Center the text
+              tickMargin={8}
+              tickCount={6}
             />
             <YAxis
               tickLine={false}
