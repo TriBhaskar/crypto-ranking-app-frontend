@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/chart";
 import { useState, useEffect } from "react";
 import { fetchChartData } from "@/api/coinApi";
+import { useLocation, useParams } from "react-router-dom";
 
 export const description = "A linear line chart";
 
@@ -30,6 +31,9 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function Chart() {
+  // const location = useLocation();
+  const { symbol } = useParams();
+
   interface ChartData {
     timestamp: string;
     value: number;
@@ -53,6 +57,7 @@ export default function Chart() {
     <Card>
       <CardHeader>
         <CardTitle>CoinRank Graph</CardTitle>
+        <span>{symbol}</span>
         <CardDescription>Last 24 Hours</CardDescription>
       </CardHeader>
       <CardContent>

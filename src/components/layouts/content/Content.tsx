@@ -11,8 +11,10 @@ import {
 import { Coin } from "@/model/Coin";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Content() {
+  const navigate = useNavigate();
   const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -51,7 +53,10 @@ export default function Content() {
         </TableHeader>
         <TableBody>
           {coins.map((coin) => (
-            <TableRow key={coin.symbol}>
+            <TableRow
+              key={coin.symbol}
+              onClick={() => navigate(`/chart/${coin.symbol}`)}
+            >
               <TableCell>{coin.name}</TableCell>
               <TableCell className={`bg-[${coin.color}]`}>
                 {coin.symbol}

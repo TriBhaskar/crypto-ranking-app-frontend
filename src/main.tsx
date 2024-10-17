@@ -15,7 +15,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="content" element={<Content />} />,
-      <Route path="chart" element={<Chart />} />,
+      <Route path="chart/:symbol" element={<Chart />} />,
     </Route>
   )
 );
