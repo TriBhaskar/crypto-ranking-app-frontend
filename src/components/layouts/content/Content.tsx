@@ -55,7 +55,7 @@ export default function Content() {
           {coins.map((coin) => (
             <TableRow
               key={coin.symbol}
-              onClick={() => navigate(`/chart/${coin.symbol}`)}
+              onClick={() => navigate(`coinrank/chart/${coin}`)}
             >
               <TableCell>{coin.name}</TableCell>
               <TableCell className={`bg-[${coin.color}]`}>

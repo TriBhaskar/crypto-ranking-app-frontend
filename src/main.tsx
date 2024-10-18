@@ -13,7 +13,7 @@ import Content from "./components/layouts/content/Content.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/coinrank" element={<Layout />}>
       <Route path="content" element={<Content />} />,
       <Route path="chart/:symbol" element={<Chart />} />,
     </Route>

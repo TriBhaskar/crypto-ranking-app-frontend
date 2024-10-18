@@ -32,7 +32,7 @@ const chartConfig = {
 
 export default function Chart() {
   // const location = useLocation();
-  const { symbol } = useParams();
+  const { coin } = useParams();
 
   interface ChartData {
     timestamp: string;
@@ -57,7 +57,7 @@ export default function Chart() {
     <Card>
       <CardHeader>
         <CardTitle>CoinRank Graph</CardTitle>
-        <span>{symbol}</span>
+        <span>{coin?.symbol}</span>
         <CardDescription>Last 24 Hours</CardDescription>
       </CardHeader>
       <CardContent>
