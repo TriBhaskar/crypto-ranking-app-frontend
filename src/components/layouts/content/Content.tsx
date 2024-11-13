@@ -21,7 +21,9 @@ export default function Content() {
   useEffect(() => {
     const fetchCoins = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/api/v1/coins");
+        const response = await axios.get(
+          "http://localhost:8081/coinRank/api/v1/coins"
+        );
         console.log("Coins:", response.data);
         setCoins(response.data);
       } catch (error) {
