@@ -2,7 +2,7 @@ import Navbar from "./navbar/Navbar";
 
 export default function Header() {
   return (
-    <div className="h-24 w-full bg-transparent z-10 absolute">
+    <div className="h-24 w-full bg-transparent backdrop-blur-sm z-10 absolute">
       <div className="container mx-auto h-full flex items-center justify-between">
         <div className="flex items-center">
           <div className="text-yellow-500 text-4xl font-bold">C</div>

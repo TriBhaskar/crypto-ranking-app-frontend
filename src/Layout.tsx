@@ -13,7 +13,9 @@ export default function Layout() {
           backgroundImage: `url(${IMAGES.bgImg})`,
         }}
       >
-        <Outlet />
+        <div className="pt-32">
+          <Outlet />
+        </div>
       </div>
       <Footer />
     </>
