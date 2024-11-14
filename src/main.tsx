@@ -11,8 +11,8 @@ import Layout from "./Layout.tsx";
 import Chart from "./components/layouts/graph/Chart.tsx";
 import Content from "./components/layouts/content/Content.tsx";
 import LoginComponent from "./components/layouts/auth/login/LoginComponent.tsx";
-import Home from "./components/layouts/home/home.tsx";
 import RegisterComponent from "./components/layouts/auth/register/RegisterComponent.tsx";
+import Home from "./components/layouts/home/Home.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
