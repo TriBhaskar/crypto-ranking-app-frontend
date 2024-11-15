@@ -14,13 +14,32 @@ export default function RegisterComponent() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Register</CardTitle>
+        <CardTitle className="text-2xl">Signup</CardTitle>
         <CardDescription>
           Enter valid details below to create an account
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="fname">First Name</Label>
+              <Input id="fname" type="text" placeholder="tommy" required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="lname">Last Name</Label>
+              <Input id="lname" type="text" placeholder="shelby" required />
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              type="text"
+              placeholder="tommyshelby11"
+              required
+            />
+          </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -31,25 +50,20 @@ export default function RegisterComponent() {
             />
           </div>
           <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              <Link to="" className="ml-auto inline-block text-sm underline">
-                Forgot your password?
-              </Link>
-            </div>
+            <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" required />
           </div>
           <Button type="submit" className="w-full">
-            Login
+            Create account
           </Button>
           <Button variant="outline" className="w-full">
-            Login with Google
+            Signup with Google
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <Link to="" className="underline">
-            Sign up
+          Already have an account?{" "}
+          <Link to="login" className="underline">
+            Sign in
           </Link>
         </div>
       </CardContent>
