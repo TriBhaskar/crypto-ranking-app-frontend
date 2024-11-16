@@ -31,12 +31,12 @@ export default function Navbar() {
           <NavbarSearch />
         </div>
         <div className="flex items-center gap-4">
-          <Link to="login">
+          <Link to="signin">
             <Button variant="outline" size="default">
               Sign in
             </Button>
           </Link>
-          <Link to="register">
+          <Link to="signup">
             <Button size="default">Sign up</Button>
           </Link>
         </div>

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 
-export default function LoginComponent() {
+export default function SignInComponent() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
