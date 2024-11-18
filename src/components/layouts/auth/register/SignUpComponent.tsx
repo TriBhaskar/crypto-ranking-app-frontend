@@ -20,6 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 export default function SignUpComponent() {
   const formik = useFormik({
@@ -59,7 +60,11 @@ export default function SignUpComponent() {
         .required("Confirm Password is required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      if (formik.isValid) {
+        toast.success("Account created successfullysssss");
+      } else {
+        console.log("form is invalid", values);
+      }
     },
   });
 
@@ -93,9 +98,9 @@ export default function SignUpComponent() {
                             viewBox="0 0 24 24"
                           >
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                              clip-rule="evenodd"
+                              clipRule="evenodd"
                             />
                           </svg>
                         </TooltipTrigger>
@@ -135,9 +140,9 @@ export default function SignUpComponent() {
                             viewBox="0 0 24 24"
                           >
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                              clip-rule="evenodd"
+                              clipRule="evenodd"
                             />
                           </svg>
                         </TooltipTrigger>
@@ -178,9 +183,9 @@ export default function SignUpComponent() {
                           viewBox="0 0 24 24"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </TooltipTrigger>
@@ -218,9 +223,9 @@ export default function SignUpComponent() {
                           viewBox="0 0 24 24"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </TooltipTrigger>
@@ -243,7 +248,7 @@ export default function SignUpComponent() {
             <div className="grid gap-2">
               <Label htmlFor={PASSWORD}>
                 Password{" "}
-                {formik.touched.email && formik.errors.email ? (
+                {formik.touched.password && formik.errors.password ? (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
@@ -258,13 +263,13 @@ export default function SignUpComponent() {
                           viewBox="0 0 24 24"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </TooltipTrigger>
-                      <TooltipContent>{formik.errors.email}</TooltipContent>
+                      <TooltipContent>{formik.errors.password}</TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 ) : null}
@@ -282,7 +287,8 @@ export default function SignUpComponent() {
             <div className="grid gap-2">
               <Label htmlFor={CONFIRM_PASSWORD}>
                 Confirm Password{" "}
-                {formik.touched.email && formik.errors.email ? (
+                {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword ? (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
@@ -297,13 +303,15 @@ export default function SignUpComponent() {
                           viewBox="0 0 24 24"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </TooltipTrigger>
-                      <TooltipContent>{formik.errors.email}</TooltipContent>
+                      <TooltipContent>
+                        {formik.errors.confirmPassword}
+                      </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 ) : null}
@@ -318,7 +326,17 @@ export default function SignUpComponent() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={() => {
+                if (formik.isValid) {
+                  // toast.success("Account created successfully");
+                } else {
+                  toast.error("Form is invalid");
+                }
+              }}
+            >
               Create account
             </Button>
             <Button variant="outline" className="w-full">
