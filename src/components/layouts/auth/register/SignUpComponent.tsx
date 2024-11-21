@@ -21,6 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { toast } from "sonner";
+import { registerUser } from "@/api/authApi";
 
 export default function SignUpComponent() {
   const formik = useFormik({
@@ -59,11 +60,34 @@ export default function SignUpComponent() {
         .oneOf([Yup.ref("password")], "Passwords must match")
         .required("Confirm Password is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (formik.isValid) {
-        toast.success("Account created successfullysssss");
+        try {
+          const registerRequest = {
+            username: values.userName,
+            password: values.password,
+            email: values.email,
+            firstName: values.firstName,
+            lastName: values.lastName,
+          };
+
+          const response = await registerUser(registerRequest);
+          if (response.status === "success") {
+            toast.success(
+              "Account created successfully" + response.timestamp.toString()
+            );
+
+            // Optional: Redirect to login page
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            toast.error(error.message);
+          } else {
+            toast.error("Registration failed");
+          }
+        }
       } else {
-        console.log("form is invalid", values);
+        toast.error("Please fix form errors");
       }
     },
   });

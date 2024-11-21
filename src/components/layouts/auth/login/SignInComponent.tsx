@@ -18,28 +18,45 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import * as Yup from "yup";
-import { EMAIL, PASSWORD } from "../authConstants";
+import { IDENTIFIER, PASSWORD } from "../authConstants";
 import { Toaster } from "@/components/ui/sonner";
+import { loginUser } from "@/api/authApi";
 
 export default function SignInComponent() {
   const formik = useFormik({
     initialValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
+      identifier: Yup.string().required("Email or Username is required"),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (formik.isValid) {
-        toast.success("Account created successfullysssss");
+        try {
+          const loginRequest = {
+            identifier: values.identifier,
+            password: values.password,
+          };
+
+          const response = await loginUser(loginRequest);
+          if (response.status === "success") {
+            toast.success("Login Succesfull " + response.username.toString());
+
+            // Optional: Redirect to login page
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            toast.error(error.message);
+          } else {
+            toast.error("Signin failed");
+          }
+        }
       } else {
-        console.log("form is invalid", values);
+        toast.error("Please fix form errors");
       }
     },
   });
@@ -48,16 +65,16 @@ export default function SignInComponent() {
       <CardHeader>
         <CardTitle className="text-2xl">Sign in</CardTitle>
         <CardDescription>
-          Enter your email below to Sign in to your account
+          Enter your email or username below to Sign in to your account
         </CardDescription>
       </CardHeader>
       <form onSubmit={formik.handleSubmit}>
         <CardContent>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="email">
-                Email{" "}
-                {formik.touched.email && formik.errors.email ? (
+              <Label htmlFor={IDENTIFIER}>
+                Email or Username{" "}
+                {formik.touched.identifier && formik.errors.identifier ? (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
@@ -78,19 +95,21 @@ export default function SignInComponent() {
                           />
                         </svg>
                       </TooltipTrigger>
-                      <TooltipContent>{formik.errors.email}</TooltipContent>
+                      <TooltipContent>
+                        {formik.errors.identifier}
+                      </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 ) : null}
               </Label>
               <Input
-                id={EMAIL}
-                name={EMAIL}
-                type="email"
-                placeholder="m@example.com"
+                id={IDENTIFIER}
+                name={IDENTIFIER}
+                type="text"
+                placeholder="m@example.com or username"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.email}
+                value={formik.values.identifier}
                 required
               />
             </div>
@@ -138,7 +157,7 @@ export default function SignInComponent() {
               className="w-full"
               onClick={() => {
                 if (formik.isValid) {
-                  console.log("form is valid", formik.values);
+                  // console.log("form is valid", formik.values);
                 } else {
                   toast.error("Form is invalid");
                 }
