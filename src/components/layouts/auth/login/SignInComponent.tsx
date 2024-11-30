@@ -15,14 +15,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import { IDENTIFIER, PASSWORD } from "../authConstants";
 import { Toaster } from "@/components/ui/sonner";
 import { loginUser } from "@/api/authApi";
+import { useAuth } from "@/context/AuthContext";
+import { Loader2 } from "lucide-react";
 
 export default function SignInComponent() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const formik = useFormik({
     initialValues: {
       identifier: "",
@@ -47,8 +51,13 @@ export default function SignInComponent() {
           const response = await loginUser(loginRequest);
           if (response.status === "success") {
             toast.success("Login Succesfull " + response.username.toString());
-
+            login(response);
             // Optional: Redirect to login page
+            formik.resetForm();
+            // Redirect to login page after short delay
+            setTimeout(() => {
+              navigate("/");
+            }, 1000); // second delay to show success message
           }
         } catch (error) {
           if (error instanceof Error) {
@@ -167,15 +176,16 @@ export default function SignInComponent() {
             <Button
               type="submit"
               className="w-full"
-              onClick={() => {
-                if (formik.isValid) {
-                  // console.log("form is valid", formik.values);
-                } else {
-                  toast.error("Form is invalid");
-                }
-              }}
+              disabled={formik.isSubmitting}
             >
-              Sign in
+              {formik.isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in
+                </>
+              ) : (
+                "Sign in"
+              )}
             </Button>
             <Button variant="outline" className="w-full">
               Sign in with Google
