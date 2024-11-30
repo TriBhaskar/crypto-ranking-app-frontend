@@ -29,7 +29,9 @@ export default function SignInComponent() {
       password: "",
     },
     validationSchema: Yup.object({
-      identifier: Yup.string().required("Email or Username is required"),
+      identifier: Yup.string()
+        .min(3, "Must be more than 3 characters")
+        .required("Email or Username is required"),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
@@ -114,34 +116,44 @@ export default function SignInComponent() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor={PASSWORD}>
-                Password{" "}
-                {formik.touched.password && formik.errors.password ? (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        {" "}
-                        <svg
-                          className="w-6 h-5 text-red-600 dark:text-white"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </TooltipTrigger>
-                      <TooltipContent>{formik.errors.password}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                ) : null}
-              </Label>
+              <div className="flex items-center">
+                <Label htmlFor={PASSWORD}>
+                  Password{" "}
+                  {formik.touched.password && formik.errors.password ? (
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          {" "}
+                          <svg
+                            className="w-6 h-5 text-red-600 dark:text-white"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {formik.errors.password}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  ) : null}
+                </Label>
+                <Link
+                  to="/forgot-password"
+                  className="ml-auto inline-block text-sm underline"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
               <Input
                 id={PASSWORD}
                 name={PASSWORD}
@@ -171,7 +183,7 @@ export default function SignInComponent() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link to="" className="underline">
+            <Link to="/signup" className="underline">
               Sign up
             </Link>
           </div>

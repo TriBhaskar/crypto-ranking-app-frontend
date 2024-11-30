@@ -66,3 +66,66 @@ export const loginUser = async (
     }
   }
 };
+
+interface ForgotPasswordRequest {
+  email: string;
+  resetPwdUrl: string;
+}
+
+interface ForgotPasswordResponse {
+  status: string;
+  message: string;
+  timestamp: string;
+}
+
+export const forgotPassword = async (
+  forgotPasswordRequest: ForgotPasswordRequest
+): Promise<ForgotPasswordResponse> => {
+  try {
+    const response = await axios.post<ForgotPasswordResponse>(
+      `${API_URL}/forgot-password`,
+      forgotPasswordRequest
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(
+        error.response.data.message || "Failed to send password reset email"
+      );
+    } else {
+      throw new Error("Failed to send password reset email");
+    }
+  }
+};
+
+interface ResetPasswordRequest {
+  token: string;
+  newPassword: string;
+}
+
+interface ResetPasswordResponse {
+  status: string;
+  message: string;
+  timestamp: string;
+}
+
+export const resetPassword = async (
+  resetPasswordRequest: ResetPasswordRequest
+): Promise<ResetPasswordResponse> => {
+  try {
+    console.log(resetPasswordRequest);
+    const response = await axios.post<ResetPasswordResponse>(
+      `${API_URL}/reset-password`,
+      resetPasswordRequest
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(
+        error.response.data.message || "Failed to reset password"
+      );
+    } else {
+      throw new Error("Failed to reset password");
+    }
+  }
+};

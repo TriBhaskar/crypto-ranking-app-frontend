@@ -13,6 +13,8 @@ import Content from "./components/layouts/content/Content.tsx";
 import Home from "./components/layouts/home/Home.tsx";
 import SignInComponent from "./components/layouts/auth/login/SignInComponent.tsx";
 import SignUpComponent from "./components/layouts/auth/register/SignUpComponent.tsx";
+import ForgotPassword from "./components/layouts/auth/login/ForgotPassword.tsx";
+import ResetPassword from "./components/layouts/auth/login/ResetPassword.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +24,8 @@ const router = createBrowserRouter(
       <Route path="chart/:symbol" element={<Chart />} />
       <Route path="content" element={<Content />} />
       <Route path="signin" element={<SignInComponent />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="reset-password" element={<ResetPassword />} />
       <Route path="signup" element={<SignUpComponent />} />
       {/* <Route path="profile" element={<UserProfile />} /> */}
     </Route>
