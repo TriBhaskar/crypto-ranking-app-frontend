@@ -193,7 +193,7 @@ export default function SignInComponent() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link to="/signup" className="underline">
+            <Link to="/signup" className="text-blue-500 hover:underline">
               Sign up
             </Link>
           </div>

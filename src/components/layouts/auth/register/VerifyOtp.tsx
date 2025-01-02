@@ -37,7 +37,9 @@ export default function VerifyOtp() {
         console.log("OTP submitted:", values.otp);
         toast.success("OTP verified successfully!");
       } catch (error) {
-        toast.error("Failed to verify OTP");
+        if (error instanceof Error) {
+          toast.error("Failed to verify OTP");
+        }
       }
     },
   });
@@ -58,7 +60,17 @@ export default function VerifyOtp() {
                 id={OTP}
                 name={OTP}
                 type="text"
+                maxLength={6}
+                pattern="[0-9]*"
+                inputMode="numeric"
                 placeholder="Enter 6-digit OTP"
+                value={formik.values.otp}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+                  formik.setFieldValue("otp", value);
+                }}
+                onBlur={formik.handleBlur}
+                className="text-center text-xl tracking-widest"
               />
               {formik.touched.otp && formik.errors.otp && (
                 <div className="text-red-500 text-sm">{formik.errors.otp}</div>
