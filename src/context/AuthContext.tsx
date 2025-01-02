@@ -1,5 +1,5 @@
 // context/AuthContext.tsx
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { AuthContextType, User } from "./AuthTypes";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -9,6 +9,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser) as User;
+        setUser(parsedUser);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Failed to parse stored user data:", error);
+        localStorage.removeItem("user");
+      }
+    }
+  }, []);
 
   const login = (user: User) => {
     setUser(user);

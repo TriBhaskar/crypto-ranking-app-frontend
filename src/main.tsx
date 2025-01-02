@@ -15,6 +15,7 @@ import SignInComponent from "./components/layouts/auth/login/SignInComponent.tsx
 import SignUpComponent from "./components/layouts/auth/register/SignUpComponent.tsx";
 import ForgotPassword from "./components/layouts/auth/login/ForgotPassword.tsx";
 import ResetPassword from "./components/layouts/auth/login/ResetPassword.tsx";
+import VerifyOtp from "./components/layouts/auth/register/VerifyOtp.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,8 @@ const router = createBrowserRouter(
       <Route path="forgot-password" element={<ForgotPassword />} />
       <Route path="reset-password" element={<ResetPassword />} />
       <Route path="signup" element={<SignUpComponent />} />
+      <Route path="verify-email" element={<VerifyOtp />} />
+      <Route path="*" element={<div>Not Found</div>} />
       {/* <Route path="profile" element={<UserProfile />} /> */}
     </Route>
   )

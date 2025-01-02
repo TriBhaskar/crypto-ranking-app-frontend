@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { registerUser } from "@/api/authApi";
+import { Loader2 } from "lucide-react";
 
 export default function SignUpComponent() {
   const formik = useFormik({
@@ -353,15 +354,16 @@ export default function SignUpComponent() {
             <Button
               type="submit"
               className="w-full"
-              onClick={() => {
-                if (formik.isValid) {
-                  // toast.success("Account created successfully");
-                } else {
-                  toast.error("Form is invalid");
-                }
-              }}
+              disabled={formik.isSubmitting}
             >
-              Create account
+              {formik.isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating Account
+                </>
+              ) : (
+                "Create Account"
+              )}
             </Button>
             <Button variant="outline" className="w-full">
               Signup with Google

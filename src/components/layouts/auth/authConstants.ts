@@ -19,6 +19,7 @@ export const EMAIL = "email";
 export const IDENTIFIER = "identifier";
 export const PASSWORD = "password";
 export const CONFIRM_PASSWORD = "confirmPassword";
+export const OTP = "otp";
 
 export const SIGN_UP_FORM = {
   FIRST_NAME,

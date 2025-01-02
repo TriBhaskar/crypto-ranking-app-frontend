@@ -1,4 +1,5 @@
 // src/api.ts
+import { API_CONFIG } from "@/config/api";
 import axios from "axios";
 
 interface RegisterRequest {
@@ -16,7 +17,7 @@ interface RegisterResponse {
   timestamp: string;
 }
 
-const API_URL = `${import.meta.env.VITE_API_URL}/user`;
+const API_URL = `${import.meta.env.VITE_API_URL}${API_CONFIG.ENDPOINTS.USER}`;
 
 export const registerUser = async (
   registerRequest: RegisterRequest

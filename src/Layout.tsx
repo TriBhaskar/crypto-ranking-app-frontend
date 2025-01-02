@@ -10,15 +10,15 @@ export default function Layout() {
       <Header />
       <div
         className="min-h-screen w-full bg-center no-repeat bg-cover bg-fixed"
-        style={{
-          backgroundImage: `url(${IMAGES.bgImg})`,
-        }}
+        // style={{
+        //   backgroundImage: `url(${IMAGES.bgImg})`,
+        // }}
       >
         <div className="pt-32">
           <Outlet />
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </AuthProvider>
   );
 }
