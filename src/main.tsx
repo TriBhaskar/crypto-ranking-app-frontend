@@ -26,11 +26,12 @@ const router = createBrowserRouter(
       <Route path="content" element={<Content />} />
       <Route path="signin" element={<SignInComponent />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
-      <Route path="reset-password" element={<ResetPassword />} />
-      <Route path="signup" element={<SignUpComponent />} />
-      <Route path="verify-email" element={<VerifyOtp />} />
+      <Route path="reset-password" element={<ResetPassword />} />,
+      <Route path="signup">
+        <Route index element={<SignUpComponent />} />
+        <Route path="verify-email" element={<VerifyOtp />} />
+      </Route>
       <Route path="*" element={<div>Not Found</div>} />
-      {/* <Route path="profile" element={<UserProfile />} /> */}
     </Route>
   )
 );
