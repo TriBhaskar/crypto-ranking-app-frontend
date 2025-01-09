@@ -9,6 +9,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -38,11 +39,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.removeItem("user");
   };
 
-  return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const setRegistrationStatus = (status: boolean) => {
+    setIsRegistering(status);
+    sessionStorage.setItem("isRegistering", status.toString());
+  };
+
+  const value = {
+    user,
+    isAuthenticated,
+    isRegistering,
+    login,
+    logout,
+    setRegistrationStatus,
+  };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 // Custom hook to use AuthContext

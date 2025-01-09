@@ -10,6 +10,8 @@ export interface User {
 export interface AuthContextType {
   user: User | null; // null when not logged in
   isAuthenticated: boolean;
+  isRegistering: boolean;
   login: (user: User) => void;
   logout: () => void;
+  setRegistrationStatus: (status: boolean) => void;
 }
